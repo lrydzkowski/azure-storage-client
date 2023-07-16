@@ -8,5 +8,5 @@ It requires Node.js 18.
 
 ```powershell
 npm install
-npm run get-data
+npm run find -- --from '2023-07-14' --to '2023-07-15' --func-name 'func-import-data-orchestrator' --query 'error'
 ```
