@@ -66,14 +66,14 @@ async function handleEntityAsync(
   blobServiceClient: BlobServiceClient,
   query: string,
 ): Promise<boolean> {
-  const partitionKey: string = (entity.partitionKey as string) ?? '';
+  const createdTime: Date = (entity.CreatedTime as Date) ?? new Date();
   const input: string = await getDataAsync(blobServiceClient, (entity.Input as string) ?? '');
   const output: string = await getDataAsync(blobServiceClient, (entity.Output as string) ?? '');
   if (input.indexOf(query) === -1 && output.indexOf(query) === -1) {
     return false;
   }
 
-  const dirPath = await createDirectoryAsync(dirName, partitionKey);
+  const dirPath = await createDirectoryAsync(dirName, createdTime);
 
   await writeFileAsync(dirPath, 'entity.txt', entity);
   await writeFileAsync(dirPath, 'input.txt', JSON.parse(input));
